@@ -12,26 +12,25 @@ const puppeteer = require('puppeteer');
 
   let browser = await puppeteer.launch({headless: false, slowMo: 250});
   let page = await browser.newPage();
+
   await page.setViewport({
     width: 1920,
     height: 1080,
   });
 
+  const agreeQuery = document.getElementById('qc-cmp2-summary-buttons secondary');
   await page.goto(pageUrl, {waitUntil: 'domcontentloaded'});
-  const watchDog = page.waitForFunction("document.querySelectorAll('.rio-striped').length > 0");
+  const watchDog = page.waitForFunction('document.getElementById(".sc-bxivhb.gUuNph") !== null');
   await watchDog;
 
-  for (let i = 0; i < 12; i++) {
-    let tbody = undefined;
-    let row = undefined;
-    //scraping fails here, doesnt 
-    await page.evaluate(() => {
-      tbody = document.querySelectorAll('.rio-striped')[i];
-      row = tbody.querySelectorAll('tr')[0];
-    });
+  await (await page.$('.sc-bxivhb.gUuNph').click());
 
-    await page.click(row);
-    debugger;
+  for (let i = 0; i < 12; i++) {
+    await page.evaluate(() => {
+      const elLookup= document.querySelectorAll('.rio-striped')[i];
+        page.click(elLookup);
+        data = elLookup.querySelectorAll('tr')[0];
+    });
   };
 
   let allDungeonTimes = await page.evaluate(() => {
