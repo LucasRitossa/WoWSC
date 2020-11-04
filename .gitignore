@@ -1,7 +1,11 @@
 node_modules
 package-lock.json
 package.json
-public
+public/favicon.png
+public/bundle.js
+public/favicon.png
+public/bundle.js.map
+public/bundle.css.map
 scripts
 rollup.config.js
 .eslintrc

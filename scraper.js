@@ -18,27 +18,33 @@ const puppeteer = require('puppeteer');
     height: 1080,
   });
 
-  const agreeQuery = document.getElementById('qc-cmp2-summary-buttons secondary');
   await page.goto(pageUrl, {waitUntil: 'domcontentloaded'});
-  const watchDog = page.waitForFunction('document.getElementById(".sc-bxivhb.gUuNph") !== null');
+
+  const agreeButtonSelector = '.qc-cmp2-summary-buttons button[mode=\"primary\"]';
+  //await agree button load
+  const watchDog = page.waitForFunction(`document.querySelector('${agreeButtonSelector}') !== null`);
   await watchDog;
 
-  await (await page.$('.sc-bxivhb.gUuNph').click());
+  await (await page.$(agreeButtonSelector)).click();
+  setTimeout(() => {
+  }, 2500);
 
-  for (let i = 0; i < 12; i++) {
-    await page.evaluate(() => {
-      const elLookup= document.querySelectorAll('.rio-striped')[i];
-        page.click(elLookup);
-        data = elLookup.querySelectorAll('tr')[0];
-    });
-  };
+  //creates a list of all twelve t-body's that need to be pressed
+  const tbodyList = await page.$$(".rio-striped");
 
-  let allDungeonTimes = await page.evaluate(() => {
-    let dataOutput = {};
-    document.querySelectorAll('tbody[class="rio-striped"]') .forEach((el, index) => { dataOutput[index] = el.innerText; });
-    return dataOutput;
-  });
+  //module clicks through all elements, currently only clicks first two
+  for (let i = 0; i < tbodyList.length; i++) {
+      const tbody = tbodyList[i];
 
+      await tbody.click({ delay: 250 });
+      //await tr's length, this always results true? (why while loop currently?) 
+      while ((await tbody.$$eval('tr', trs => trs.length)) <= 1) { }
+      //timeout incase error was based on overload
+      setTimeout(() => {
+      }, 5000);
+   }
+
+  //returns top ten dungeon times and parses string (incomplete parser, otherwise works)
   let topDungeonTimes = await page.evaluate(() => {
     let splitRecordsFull = [];
     for (let i = 0; i < 12; i++) {
