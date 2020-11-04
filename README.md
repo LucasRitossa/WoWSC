@@ -6,7 +6,7 @@ WoWSC is a lightweight web-app written in SvelteJS and JavaScript which scrapes 
 - Chart.js
 - svelte-routing
 - materialize-css
--puppeteer
+- puppeteer
 
 ## Building The Project
 To build you project you must create a new svelete project and import all listed npm dependencies, a simple **npm run dev** will compile the project and open it on and open port
