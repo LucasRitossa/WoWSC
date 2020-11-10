@@ -1,20 +1,20 @@
 
-<body bgcolor="#1a1a1a" >
+<body  >
 	<br />
 	<br />
 	<br />
 	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
+	
+  <div class="container center">
+  <img src="wowzerz logo.png" alt="WoWSC Logo" width="250" height="250" >
+</div>
+<br />
+  <br />
+  <br />
+
 <div class="container center">
 	<div class="container center">
-		<input placeholder='Search...'  type="text" class="center" style="width:800px"> 
+		<input placeholder='Search...'  type="text" style="width:100%"> 
 	</div>
 	  
 	
@@ -31,38 +31,17 @@
 	<button on:click={createLineChart}> Dugeon Stats Line </button>
 	<button on:click={createChart}> Raid Stats </button>
 </div>
-  <div class="container" >  
+  <div class="container center" style="width:60%">
 	
-	<canvas   id="myChart" width="100" height="50"></canvas>
-	<canvas   id="myNewChart" width="2" height="1"></canvas>
-	<canvas  id="myLineChart" width="100" height="50"></canvas>
+  <canvas  id="myChart" ></canvas> 
+  <canvas  id="myNewChart" ></canvas> 
+  <canvas  id="myLineChart"></canvas>
+	
+	
 	  </div> 
 	  
 	</div>
-  <br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-  <br />
-  <br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
+  
 </body>
   <script>
   import "../node_modules/materialize-css/dist/css/materialize.min.css";
@@ -88,13 +67,13 @@
 		position: "top",
 		text: "Line Graph",
 		fontSize: 18,
-		fontColor: "#111"
+		fontColor: "#ffff"
 	  },
 	  legend: {
 		display: true,
 		position: "bottom",
 		labels: {
-		  fontColor: "#333",
+		  fontColor: "#ffff",
 		  fontSize: 16
 		}
 	  }
