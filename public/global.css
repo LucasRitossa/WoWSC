@@ -10,5 +10,19 @@ body,
 #background { 
   width: 100vw;
   min-height: 100vh;
-  background-color: #1a1a1a;
+  background-color: #0f0f0f;
+}
+button{
+  border: 2px solid #ffffff;
+  padding: 12px;
+  margin-inline: 15px;
+  border-radius: 5px;
+  background-color: #0f0f0f;
+  text-decoration: none;
+  text-align: center;
+  transition-duration: 0.4s;
+  color: white;
+}
+button:hover{
+  background-color: #535353;
 }
