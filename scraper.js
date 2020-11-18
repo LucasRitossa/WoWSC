@@ -10,7 +10,7 @@ const puppeteer = require('puppeteer');
   let pageUrl = `https://raider.io/characters/${userInfo.country}/${
       userInfo.realm}/${userInfo.name}#season=season-bfa-4`;
 
-  let browser = await puppeteer.launch({headless: false, slowMo: 100});
+  let browser = await puppeteer.launch({headless: false});
   let page = await browser.newPage();
 
   await page.setViewport({
@@ -25,14 +25,13 @@ const puppeteer = require('puppeteer');
   const watchDog = page.waitForFunction(`document.querySelector('${agreeButtonSelector}') !== null`);
   await watchDog;
 
-  const cookieAccept = '.cookie-footer--accept_button slds-button slds-button--brand slds-text-heading--medium slds-p-vertical--x-small slds-p-horizontal--large';
+  const cookieAccept = '.cookie-footer--accept_button';
 
-  await (await page.getElementByClassName(cookieAccept)).click();
   //The issue of skipping some elemnts may reside in the cookie prompt
   await (await page.$(agreeButtonSelector)).click();
   setTimeout(() => {
-  }, 2500);
-
+  }, 1000);
+  await (await page.$(cookieAccept)).click();
   //creates a list of all twelve t-body's that need to be pressed
   const tbodyList = await page.$$(".rio-striped");
 
