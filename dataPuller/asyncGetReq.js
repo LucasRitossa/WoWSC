@@ -19,7 +19,7 @@ const dungeonId = {
   siege_of_boralus : 9354,
 };
 name = name[0].toUpperCase() + name.substring(1);
-
+let bulkData = [];
 //get charId
   axios.get(`https://raider.io/api/search-advanced?type=character&name%5B0%5D%5Bcontains%5D=${name}`)
     .then(function (response) {
@@ -35,22 +35,22 @@ name = name[0].toUpperCase() + name.substring(1);
     })
     .then(function(){
       let x = 0;
-      let bulkData = [];
       for(key in dungeonId){
           let req = `https://raider.io/api/characters/mythic-plus-runs?season=season-bfa-4&characterId=${charId}&dungeonId=${dungeonId[key]}&role=all&specId=0&mode=scored&affixes=all&date=all`;
           console.log(req);
-        console.log(x);
+
             axios.get(req)
             .then(function (response) {
-              //console.log(response);
-              //curently all 12 responses cannot be written to one file, empty array persits
-              bulkData[x] = response;
-            })
+              bulkData.push(response.data);
+            }) 
+            .then(function(){
+              console.log(x);
+              if(x == 12) for(el in bulkData) console.log(bulkData[el]);
+              })
             .catch(function (error) {
               console.log(error);
+              console.log('ERR');
             });
-        x++
-        }
-console.log(bulkData);
-      }
-    );
+        x++;
+      };
+    });
