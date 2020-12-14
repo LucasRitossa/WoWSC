@@ -21,7 +21,9 @@
     "start:dev": "sirv public --dev"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "chart.js": "^2.9.4",
+    "express": "^4.17.1",
     "materialize-css": "^1.0.0-rc.2",
     "puppeteer": "^5.4.1",
     "svelte-routing": "^1.4.2"
