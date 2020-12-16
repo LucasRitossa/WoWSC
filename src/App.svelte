@@ -1,37 +1,63 @@
 
-<body  >
-	<br />
-	<br />
-	<br />
-	<br />
-	
-  <div class="container center">
+<body >
+<br /><br /><br /><br />
+<div>
   <img src="wowzerz logo.png" alt="WoWSC Logo" width="250" height="250" >
-</div>
-<br />
-  <br />
-  <br />
-
-<div class="container center">
-	<div class="container center">
-		<input placeholder='Search...'  type="text" style="width:100%"> 
+<div/>
+<br /><br /><br />
+<div class="center">
+	<div>
+		<input placeholder='Search...'  type="text" > 
 	</div>
-	  
-	
-  
-<div class="container " >
-	<!--<button on:click={getInfo}>Get Stats</button>}-->
-  
-	<p class="center" >{posts.race} {posts.active_spec_name} {posts.class}: {posts.name} </p>
-	<!--<p> {console.log(posts.raid_progression)}</p>-->
-  </div>
-
-  <div class="container center">
+	</div>
+		
+  		<div class="center">
+			<div class="container">
+        <label for="getDungeon" >Choose a Dungeon:</label>
+        <select name="getDungeon" id="getDungeon"bind:value={dungeon}>
+          <optgroup label="BFA">
+                <option value="mechagon_workshop">Mechagon Workshop</option>
+                <option value="atal_dazar">Atal'Dazar</option>
+                <option value="shrine_of_the_storm">Shrine of The Storm</option>
+                <option value="siege_of_boralus">Siege of Boralus</option>
+                <option value="mechagon_junkyard">Mechagon Workshop</option>
+                <option value="freehold">Freehold</option>
+                <option value="tol_dagor">Tol Dagor</option>
+                <option value="temple_of_sethralis">Temple of Sethralis</option>
+                <option value="kings_rest">Kings Rest</option>
+                <option value="the_motherload">The Motherload</option>
+                <option value="the_underrot">The Underrot</option>
+                <option value="waycrest_manor">Waycrest Manor</option>
+                <option selected="...">...</option>
+          </optgroup>
+        </select>
+        <label for="Realm">Choose a Realm:</label>
+        <select name="Realm" id="Realm"bind:value={realm}>
+                <option value="Area-52">Area 52</option>
+                <option value="Stormrage">Stormtage</option>
+                <option value="Moonguard" selected>...</option>
+                <option selected="...">...</option>
+        </select>
+        <label for="Region">Choose a Region:</label>
+        <select name="Region" id="Region"bind:value={region}>
+                <option value="ENUS">America</option>
+                <option value="EU">Europe</option>
+                <option selected="...">...</option>
+        </select>
+        <div>
+        <button on:click={getDungeon}>Submit</button>
+        </div>
+        <br />
+        <br />
+	<div class="center"  >
+		<div class="container" style="margin-left:37%">
+		
 	<button on:click={showMyChart}>Dugeon Stats </button>
 	<button on:click={showLineChart}> Dugeon Stats Line </button>
 	<button on:click={showNewChart}> Raid Stats </button>
 </div>
-  <div class="container center" id="test" style="width:60%">
+</div>
+  <div  class="center" style="width:60%">
 	
   <canvas  id="myChart" ></canvas> 
   <canvas  id="myNewChart" ></canvas> 
@@ -40,19 +66,24 @@
 	
 	  </div> 
 	  
+
 	</div>
-  
 </body>
-  <script>
-  import "../node_modules/materialize-css/dist/css/materialize.min.css";
-  import "../node_modules/materialize-css/dist/js/materialize.min.js";
+  <script >
+	  
   import { onMount } from 'svelte';
-  let visible = true;
-  function showCan(){
-	createDungeonChart();
-	myFunction();
+  $: name='jmd';
+  $: region="";
+  $: realm="";
+  $: dungeon="";
+
+  function getDungeon(){
+        console.log(name)
+        console.log(region)
+        console.log(realm)
+        console.log(dungeon)
   }
-  
+
   function createLineChart() {
 	  //options
 	var options = {
@@ -142,7 +173,21 @@
   });
 	}
 	function createDungeonChart() {
-  
+
+  const dungeonRecs = {
+  "mw" : ["133","121","58","101","47"],
+  "ad" : ["110","100","83","50","32"],
+  "sos" : ["","","","",""],
+  "sob" : ["","","","",""],
+  "mj" : ["","","","",""],
+  "fh" : ["","","","",""],
+  "td" : ["","","","",""],
+  "ts" : ["","","","",""],
+  "kr" : ["","","","",""],
+  "tm" : ["","","","",""],
+  "tu" : ["","","","",""],
+  "wm" : ["","","","",""],
+  }
   
   var ctx2 = document.getElementById('myNewChart');
   var myChart = new Chart(ctx2, {
@@ -150,12 +195,12 @@
 	  data: {
 		  labels: ['Atlal-Dazar','Freehold', 'Mechagon - Junkyard', 'Seige of Boralus','Shrine of The Storm'],
 		  datasets: [{
-			  label: 'Top 5 Dungeons',
+			  label: 'Top 5 Runs',
 			  legend:{
 				  position: 'top',
 				  align: 'start'
 			  },
-			  data: [22.52, 29.75, 20.25, 21.3, 43.12],
+        data: dunrecord,
 			  backgroundColor: [
 				  'rgba(255, 80, 150, 0.33)',
 				  'rgba(255, 206, 86, 0.33)',
@@ -219,15 +264,23 @@ var z = document.getElementById("myLineChart");
 		y.style.display = "none";
 		z.style.display = "block";
 } 
-   let name='jmd';
+   
 	let posts = [];
 	let getInfo = (async () =>{
 		 const res= await fetch("https://raider.io/api/v1/characters/profile?region=us&realm=area52&name=jmd&fields=raid_progression");
 		 posts = await res.json();
+		
    });
+  
+  
    onMount(hideCharts);
    onMount(createChart);
    onMount(createLineChart);
    onMount(createDungeonChart);
    onMount(getInfo);
-  </script>
+   //onMount(testFunciton);
+</script>
+ 
+  
+  
+   
