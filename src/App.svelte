@@ -3,54 +3,58 @@
 <br /><br /><br /><br />
 <div>
   <img src="wowzerz logo.png" alt="WoWSC Logo" width="250" height="250" >
-</div>
+<div/>
 <br /><br /><br />
 <div class="center">
 	<div>
-		<input placeholder='Search...'  type="text" > 
+    <input placeholder='Search... (user one)'  type="text" >
+    <br />
+    <br />
+    <br />
+    <br />
+		<input placeholder='Search... (user two)'  type="text" >
 	</div>
 	</div>
 		
   		<div class="center">
 			<div class="container">
-        <label for="getDungeon" >Dungeon:</label>
+        <label for="getDungeon" >Choose a Dungeon:</label>
         <select name="getDungeon" id="getDungeon"bind:value={dungeon}>
           <optgroup label="BFA">
-                <option value="mechagon_workshop">Mechagon Workshop</option>
-                <option value="atal_dazar">Atal'Dazar</option>
-                <option value="shrine_of_the_storm">Shrine of The Storm</option>
-                <option value="siege_of_boralus">Siege of Boralus</option>
-                <option value="mechagon_junkyard">Mechagon Workshop</option>
-                <option value="freehold">Freehold</option>
-                <option value="tol_dagor">Tol Dagor</option>
-                <option value="temple_of_sethralis">Temple of Sethralis</option>
-                <option value="kings_rest">Kings Rest</option>
-                <option value="the_motherload">The Motherload</option>
-                <option value="the_underrot">The Underrot</option>
-                <option value="waycrest_manor">Waycrest Manor</option>
+                <option value=0>Mechagon Workshop</option>
+                <option value=1>Atal'Dazar</option>
+                <option value=2>Shrine of The Storm</option>
+                <option value=3>Siege of Boralus</option>
+                <option value=4>Mechagon Workshop</option>
+                <option value=5>Freehold</option>
+                <option value=6>Tol Dagor</option>
+                <option value=7>Temple of Sethralis</option>
+                <option value=8>Kings Rest</option>
+                <option value=9>The Motherload</option>
+                <option value=10>The Underrot</option>
+                <option value=11>Waycrest Manor</option>
                 <option selected="...">...</option>
           </optgroup>
         </select>
-        <label for="Realm">Realm:</label>
+        <label for="Realm">Choose a Realm:</label>
         <select name="Realm" id="Realm"bind:value={realm}>
                 <option value="Area-52">Area 52</option>
                 <option value="Stormrage">Stormtage</option>
                 <option value="Moonguard" selected>...</option>
                 <option selected="...">...</option>
         </select>
-        <label for="Region">Region:</label>
+        <label for="Region">Choose a Region:</label>
         <select name="Region" id="Region"bind:value={region}>
                 <option value="ENUS">America</option>
                 <option value="EU">Europe</option>
                 <option selected="...">...</option>
-		</select>
-	</div>
-	</div>
-        <div class="center" style="margin-left:47%">
-        <button  on:click={getDungeon}>Submit</button>
+        </select>
+        <div>
+        <button on:click={getDungeon}>Submit</button>
         </div>
-       
-	<div class="center" style="display:none"  id="reallycoolbutton">
+        <br />
+        <br />
+	<div class="center"  >
 		<div class="container" style="margin-left:37%">
 		
 	<button on:click={showMyChart}>Dugeon Stats </button>
@@ -67,9 +71,8 @@
 	
 	  </div> 
 	  
-	
-	
 
+	</div>
 </body>
   <script >
 	  
@@ -83,8 +86,7 @@
         console.log(name)
         console.log(region)
         console.log(realm)
-		console.log(dungeon)
-		showChartButtons();
+        console.log(dungeon)
   }
 
   function createLineChart() {
@@ -178,32 +180,32 @@
 	function createDungeonChart() {
 
   const dungeonRecs = {
-  "mw" : ["133","121","58","101","47"],
-  "ad" : ["110","100","83","50","32"],
-  "sos" : ["","","","",""],
-  "sob" : ["","","","",""],
-  "mj" : ["","","","",""],
-  "fh" : ["","","","",""],
-  "td" : ["","","","",""],
-  "ts" : ["","","","",""],
-  "kr" : ["","","","",""],
-  "tm" : ["","","","",""],
-  "tu" : ["","","","",""],
-  "wm" : ["","","","",""],
+  0 : [133,121,58,101,47],
+  1 : [110,100,83,50,32],
+  2 : [120,102,40,29,0],
+  3 : [103,80,32,12,9],
+  4 : [93,68,61,50,24],
+  5 : [110,100,84,53,31],
+  6 : [79,13,3],
+  7 : [101,35,29,13],
+  8 : [24,19],
+  9 : [],
+  10 : [],
+  11 : [],
   }
   
   var ctx2 = document.getElementById('myNewChart');
   var myChart = new Chart(ctx2, {
 	  type: 'bar',
 	  data: {
-		  labels: ['Atlal-Dazar','Freehold', 'Mechagon - Junkyard', 'Seige of Boralus','Shrine of The Storm'],
+		  labels: ['#1','#2', '#3', '#4','#5'],
 		  datasets: [{
 			  label: 'Top 5 Runs',
 			  legend:{
 				  position: 'top',
 				  align: 'start'
 			  },
-        data: dunrecord,
+        data: dungeonRecs[Math.floor((Math.random() * 8))] ,
 			  backgroundColor: [
 				  'rgba(255, 80, 150, 0.33)',
 				  'rgba(255, 206, 86, 0.33)',
@@ -244,6 +246,7 @@ var z = document.getElementById("myLineChart");
 	}
 	
 	function showMyChart() {
+createChart();
 var x = document.getElementById("myChart");
 var y = document.getElementById("myNewChart");
 var z = document.getElementById("myLineChart");
@@ -266,10 +269,6 @@ var z = document.getElementById("myLineChart");
 		x.style.display = "none";
 		y.style.display = "none";
 		z.style.display = "block";
-} 
-function showChartButtons() {
-var x = document.getElementById("reallycoolbutton");
-		x.style.display = "block";	
 } 
    
 	let posts = [];
