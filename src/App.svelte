@@ -3,7 +3,7 @@
 <br /><br /><br /><br />
 <div>
   <img src="wowzerz logo.png" alt="WoWSC Logo" width="250" height="250" >
-<div/>
+</div>
 <br /><br /><br />
 <div class="center">
 	<div>
@@ -13,7 +13,7 @@
 		
   		<div class="center">
 			<div class="container">
-        <label for="getDungeon" >Choose a Dungeon:</label>
+        <label for="getDungeon" >Dungeon:</label>
         <select name="getDungeon" id="getDungeon"bind:value={dungeon}>
           <optgroup label="BFA">
                 <option value="mechagon_workshop">Mechagon Workshop</option>
@@ -31,25 +31,26 @@
                 <option selected="...">...</option>
           </optgroup>
         </select>
-        <label for="Realm">Choose a Realm:</label>
+        <label for="Realm">Realm:</label>
         <select name="Realm" id="Realm"bind:value={realm}>
                 <option value="Area-52">Area 52</option>
                 <option value="Stormrage">Stormtage</option>
                 <option value="Moonguard" selected>...</option>
                 <option selected="...">...</option>
         </select>
-        <label for="Region">Choose a Region:</label>
+        <label for="Region">Region:</label>
         <select name="Region" id="Region"bind:value={region}>
                 <option value="ENUS">America</option>
                 <option value="EU">Europe</option>
                 <option selected="...">...</option>
-        </select>
-        <div>
-        <button on:click={getDungeon}>Submit</button>
+		</select>
+	</div>
+	</div>
+        <div class="center" style="margin-left:47%">
+        <button  on:click={getDungeon}>Submit</button>
         </div>
-        <br />
-        <br />
-	<div class="center"  >
+       
+	<div class="center" style="display:none"  id="reallycoolbutton">
 		<div class="container" style="margin-left:37%">
 		
 	<button on:click={showMyChart}>Dugeon Stats </button>
@@ -66,8 +67,9 @@
 	
 	  </div> 
 	  
+	
+	
 
-	</div>
 </body>
   <script >
 	  
@@ -81,7 +83,8 @@
         console.log(name)
         console.log(region)
         console.log(realm)
-        console.log(dungeon)
+		console.log(dungeon)
+		showChartButtons();
   }
 
   function createLineChart() {
@@ -263,6 +266,10 @@ var z = document.getElementById("myLineChart");
 		x.style.display = "none";
 		y.style.display = "none";
 		z.style.display = "block";
+} 
+function showChartButtons() {
+var x = document.getElementById("reallycoolbutton");
+		x.style.display = "block";	
 } 
    
 	let posts = [];
