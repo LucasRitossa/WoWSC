@@ -3,9 +3,14 @@
 <br /><br /><br /><br />
 <div>
   <img src="wowzerz logo.png" alt="WoWSC Logo" width="250" height="250" >
-<div/>
+</div>
 <br /><br /><br />
-<div class="center">
+<div class="center"  id="onesrc">
+	<div>
+<input placeholder='Search... '  type="text" >
+</div>
+</div>
+<div style="display:none" id="twosrc" class="center">
 	<div>
     <input placeholder='Search... (user one)'  type="text" >
     <br />
@@ -18,7 +23,7 @@
 		
   		<div class="center">
 			<div class="container">
-        <label for="getDungeon" >Choose a Dungeon:</label>
+        <label for="getDungeon" >Dungeon:</label>
         <select name="getDungeon" id="getDungeon"bind:value={dungeon}>
           <optgroup label="BFA">
                 <option value=0>Mechagon Workshop</option>
@@ -36,26 +41,29 @@
                 <option selected="...">...</option>
           </optgroup>
         </select>
-        <label for="Realm">Choose a Realm:</label>
+        <label for="Realm">Realm:</label>
         <select name="Realm" id="Realm"bind:value={realm}>
                 <option value="Area-52">Area 52</option>
                 <option value="Stormrage">Stormtage</option>
                 <option value="Moonguard" selected>...</option>
                 <option selected="...">...</option>
         </select>
-        <label for="Region">Choose a Region:</label>
+        <label for="Region">Region:</label>
         <select name="Region" id="Region"bind:value={region}>
                 <option value="ENUS">America</option>
                 <option value="EU">Europe</option>
                 <option selected="...">...</option>
-        </select>
-        <div>
-        <button on:click={getDungeon}>Submit</button>
+		</select>
+	</div>
+</div>
+        <div class="center" style="margin-left:45%" >
+		<button on:click={getDungeon}>Submit</button>
+		<div id="comparebutt" style="float:left; padding-right:5px"><button on:click={showBars}>Compare</button></div>
+		<div id="oneplayer" style="display:none; float:left; padding-right:5px"><button   on:click={hideBars}>One Player</button></div>
         </div>
-        <br />
-        <br />
+        
 	<div class="center"  >
-		<div class="container" style="margin-left:37%">
+		<div id="reallycoolbuttons"  class="container" style="margin-left:37%; display:none">
 		
 	<button on:click={showMyChart}>Dugeon Stats </button>
 	<button on:click={showLineChart}> Dugeon Stats Line </button>
@@ -72,7 +80,7 @@
 	  </div> 
 	  
 
-	</div>
+	
 </body>
   <script >
 	  
@@ -86,7 +94,9 @@
         console.log(name)
         console.log(region)
         console.log(realm)
-        console.log(dungeon)
+		console.log(dungeon)
+		var z = document.getElementById("reallycoolbuttons");
+		z.style.display = "block";
   }
 
   function createLineChart() {
@@ -270,7 +280,28 @@ var z = document.getElementById("myLineChart");
 		y.style.display = "none";
 		z.style.display = "block";
 } 
-   
+function showBars() {
+var x = document.getElementById("twosrc");
+		x.style.display = "block";
+var z = document.getElementById("oneplayer");
+		z.style.display = "block";
+var y = document.getElementById("comparebutt");
+		y.style.display = "none";
+var z = document.getElementById("onesrc");
+		z.style.display = "none";
+
+} 
+function hideBars() {
+var x = document.getElementById("twosrc");
+		x.style.display = "none";
+var y = document.getElementById("comparebutt");
+		y.style.display = "block";
+var z = document.getElementById("oneplayer");
+		z.style.display = "none";
+var z = document.getElementById("onesrc");
+		z.style.display = "block";
+} 
+
 	let posts = [];
 	let getInfo = (async () =>{
 		 const res= await fetch("https://raider.io/api/v1/characters/profile?region=us&realm=area52&name=jmd&fields=raid_progression");
